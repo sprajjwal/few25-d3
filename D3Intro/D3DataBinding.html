@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Data Binding</title>
+</head>
+<body>
+
+    <button onclick="render([10, 20, 30])">Update Values</button>
+
+    <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+
+    <script>
+
+        /*TODO 1:
+        Use the d3.js to create four divs containing(bound to) values in the arraytoRender array declared below
+        HINT: Make use of the .data(), .enter(), .append() and .text() methods chained to the d3.selector()
+        */        
+       
+        let arraytoRender = [10, 20, 30, 40];
+
+
+        /*TODO 2:
+        Create a render function that is invoked on click of the "Update Values"
+        On click of the "Update Values", use d3.js to update items of the array from [10, 20, 30, 40] to [10, 20, 30]
+        HINT: use the .data(), .append(), .text(), .exit() and .remove() methoods
+        */   
+       let render = (dataToRender)=> {
+ 
+       }
+        
+       </script>
+       
+</body>
+</html>
