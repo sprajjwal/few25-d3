@@ -32,7 +32,14 @@
     let graph = d3.select("body")
       .append("svg")
       .attr("width", width)
-      .attr("height", barHeight * data.length);
+      .attr("height", barHeight * data.length)
+      .append('circle')
+      .select('circle')
+      .attr('r', 100)
+      .attr('fill', 'red')
+      
+
+
 
 </script>
 </body>

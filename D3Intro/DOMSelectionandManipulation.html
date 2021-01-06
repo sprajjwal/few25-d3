@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <!-- Style these divs using d3.js check for instructions in TODO 2-->
+    <!-- Style these divs using d3.js check for instructions in TODO 2 -->
 
         <div id="firstDiv">First Div</div>
         <div id="secondDiv">Second Div</div>
@@ -33,7 +33,9 @@
         Create a new h1 tag(header element)  using .append() function in a chained call with the .select()
         Set the text content of the new h1 tag to the read 'Hello from the other side!'
     */
-         d3.select('')
+         d3.select('#firstDiv')
+         .append('h1')
+         .text('Hello')
   
 
     /* TO DO 2: 

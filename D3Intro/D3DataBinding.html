@@ -7,30 +7,69 @@
 </head>
 <body>
 
-    <button onclick="render([10, 20, 30])">Update Values</button>
+  <!-- Better to use addEventListener -->
+  <button id="button" onclick="render([11, 21, 31])">Update Values</button>
 
-    <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+  <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script>
 
-    <script>
+  <script>
 
-        /*TODO 1:
-        Use the d3.js to create four divs containing(bound to) values in the arraytoRender array declared below
-        HINT: Make use of the .data(), .enter(), .append() and .text() methods chained to the d3.selector()
-        */        
-       
-        let arraytoRender = [10, 20, 30, 40];
+    document.body.addEventListener('click', (e) => {
+      if (e.target.matches('#button')) {
+        // work with button here
+      }
+    })
+
+    const button = document.querySelector('#button')
+    button.addEventListener('click', (e) => {
+
+    })
+
+    // Needs a purpose or goals. Rather than displaying numbers 
+    // display some real data. 
+
+    /*TODO 1:
+
+      Break this down into steps with a clear 
+
+      Use the d3.js to create four divs containing(bound to) 
+      values in the arraytoRender array declared below
+      HINT: Make use of the .data(), .enter(), .append() and 
+      .text() methods chained to the d3.selector()
+    */        
+    
+    let arraytoRender = [10, 20, 30, 40];
+
+    d3.select('body')
+      .selectAll('div')
+      .data(arraytoRender)
+      .enter()
+      .append('div')
+      .text(v => v)
 
 
-        /*TODO 2:
-        Create a render function that is invoked on click of the "Update Values"
-        On click of the "Update Values", use d3.js to update items of the array from [10, 20, 30, 40] to [10, 20, 30]
-        HINT: use the .data(), .append(), .text(), .exit() and .remove() methoods
-        */   
-       let render = (dataToRender)=> {
- 
-       }
-        
-       </script>
-       
+    /*TODO 2:
+      Create a render function that is invoked on click of the "Update Values"
+      On click of the "Update Values", use d3.js to update items of the array from [10, 20, 30, 40] to [10, 20, 30]
+      HINT: use the .data(), .append(), .text(), .exit() and .remove() methods
+    */   
+    let render = (dataToRender)=> {
+      d3.select('body')
+      // challenge 1
+        .selectAll('div')
+        .data(dataToRender)
+        .text(v => v)
+        // challenge 2, 3
+        .exit()
+        .remove()
+    }
+
+    // Super easy challenge
+    // More challenges 
+    // ...
+    // Stretch challenges can be harder
+      
+      </script>
+      
 </body>
 </html>
