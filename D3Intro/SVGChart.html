@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG BAR CHRT with D3</title>
+  <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG BAR CHRT with D3</title>
 
-    <style>
-        svg rect {
-            fill: #1DA1F2;
-        }
+  <style>
+    svg rect {
+      fill: #1DA1F2;
+    }
 
-        svg text {
-            font: 14px sans-serif;
-        }
-    </style>
+    svg text {
+      font: 14px sans-serif;
+    }
+  </style>
 </head>
 <body>
-    <script>
+  <script>
 
-        /* 
-        TODO: 
-        Create an SVG bar chart with the data given below(data) using D3
-        HINT: You could use this linkshttps://www.freecodecamp.org/news/how-to-create-your-first-bar-chart-with-d3-js-a0e8ea2df386/ for pointers
-        */
-        let data = [7, 11, 12, 13, 4, 8];
-        let width = 200,
-        scaleFactor = 10,
-        barHeight = 20;
+    /* 
+    TODO: 
+    Create an SVG bar chart with the data given below(data) using D3
+    HINT: You could use this linkshttps://www.freecodecamp.org/news/how-to-create-your-first-bar-chart-with-d3-js-a0e8ea2df386/ for pointers
+    */
+    let data = [7, 11, 12, 13, 4, 8];
+    let width = 200,
+    scaleFactor = 10,
+    barHeight = 20;
 
-        let graph = d3.select("body")
-                  .append("svg")
-                  .attr("width", width)
-                  .attr("height", barHeight * data.length);
-
-
+    let graph = d3.select("body")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", barHeight * data.length);
 
 </script>
 </body>
