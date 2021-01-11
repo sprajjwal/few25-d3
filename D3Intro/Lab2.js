@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
 /*
@@ -16,7 +15,7 @@ d3.select('svg#example1')
 /*
     Use D3 to create shapes in svg#example1 using the following attributes/dimensions:
   TODO 1: Circle
-        set the opacity of the circle to 0.5
+        set the opacity of the circle below to 0.5
 */
 d3.select('svg#example1')
   .append('circle')
@@ -32,12 +31,23 @@ d3.select('svg#example1')
 */
 /*
 TODO 3: Draw an SVG Line with the following attributes:
-         lineOne: x1=100, y1=100 x2=200, y2= 200, stroke=rgb(255, 0, 0), stroke-width=4
+        line:
+         x1=100,
+         y1=100,
+         x2=200,
+         y2= 200,
+         stroke=rgb(255, 0, 0),
+         stroke-width=4
 */
 
 /*
 TODO 4: Draw an SVG Rectangle witht he following attributes:
-         rectOne: x=20, y=20 width=200, height=100, fill=green
+         rect:
+         x=20,
+         y=20
+         width=200,
+         height=100,
+         fill=green
    */
 
 /* Example Two: Simple Bar Chart showing ticket slaes for each conference in sales.json
@@ -89,7 +99,114 @@ d3.json('../data/sales.json')
 
 /*
   TOD0 5:
-  Display a simple Bar Graph showing the viewership numbers for each film in viewership.csv
+  Display a simple Bar Graph like the example above
+  It sshould show the US viewership numbers for each title in 'data/viewership.json'
    */
-d3.csv('../data/viewership.csv')
+d3.json('../data/viewership.json')
   .then();
+
+/*
+    Example 3: Drawing a Line Chart with D3
+   */
+const lineHeight = 350;
+
+// Create function to draws the line
+const lineFunction = d3.line()
+  .x((val) => val.month * 3)
+  .y((val) => lineHeight - val.sales)
+  .curve(d3.curveLinear);
+
+d3.json('../data/monthlySales.json')
+  .then((data) => {
+    // draw the line
+    d3.select('svg#example3')
+      .selectAll('path')
+      .data(data)
+      .enter()
+      .append('path')
+      .attr('d', lineFunction(data))
+      .attr('stroke', 'purple')
+      .attr('stroke-width', 2)
+      .attr('fill', 'none');
+
+    // add labels
+    d3.select('svg#example3')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .text((val) => val.sales)
+      .attr('x', (val) => val.month * 3 - 25)
+      .attr('y', (val) => lineHeight - val.sales)
+      .attr('font-sizwe', '12px')
+      .attr('fill', '#666666')
+      .attr('text-ancchor', 'start')
+      .attr('dy', '.35em');
+  });
+
+/* TODO 6:
+ Draw a Line Chart like the example above.
+ It should display the US Viewership numbers for episode in 'data/viewership.json'
+*/
+d3.json('../data/viewership.json')
+  .then();
+
+/*
+    Example 4: Drawing a Scatter Plot with D3
+   */
+// define svg plot height and width
+const plotHeight = 350;
+
+// Add min and max values to native Javascript Array Object
+Array.max = (array) => Math.max(...array);
+Array.min = (array) => Math.min(...array);
+
+// eslint-disable-next-line consistent-return
+const showMinMax = (dataset, column, value, type) => {
+  const max = d3.max(dataset, (d) => d[column]);
+  const min = d3.min(dataset, (d) => d[column]);
+
+  if (type === 'minmax' && (value === max || value === min)) {
+    return value;
+  } if (type === 'all') {
+    return value;
+  }
+};
+d3.json('../data/monthlySales.json')
+  .then((data) => {
+    // draw/add the dots
+    d3.select('svg#example4')
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (val) => val.month * 3)
+      .attr('cy', (val) => plotHeight - (val.sales))
+      .attr('r', 5)
+      .attr('fill', '#666666');
+
+    // add labels
+    d3.select('svg#example4')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .text((val) => showMinMax(data, 'sales', val.sales, 'all'))
+      .attr('x', (val) => (val.month * 3) - 25)
+      .attr('y', (val) => plotHeight - (val.sales))
+      .attr('font-size', '12px')
+      .attr('font-family', 'sans-serif')
+      .attr('fill', '#666666')
+      .attr('text-anchor', 'start');
+  });
+
+/*  TODO 7: Draw a simple scatter plot with D3
+  It should display the US Viewership numbers for episode in 'data/viewership.json' */
+d3.json('../data/viewership.json')
+  .then();
+
+/*
+TODO 8 (Stretch Challenge) : Add a function that colours(fills) the dats of the scatter plot
+      Colour them green when the value of US Viewership is greater than or equal to 150
+      colour them red when the value of US Viewership is less than than 150
+*/

@@ -36,14 +36,14 @@ d3.json('../data/sales.json').then((data) => {
 
 /*
     TODO 2:
-    load the data from viewership.csv into the DOM listing its Film title in a list
+    load the data from 'data/viewership.json' into the DOM listing its Film title in a list tag
     Use the example above to guide
  */
 
-d3.csv('../data/viewership.csv');
+d3.json('../data/viewership.json');
 
 /* Stretch Challenge:
-Display it's title and first air date to the the list above in a table section
+Display it's title and first air date to the the list above in a table tag
 */
 
-d3.csv('../data/viewership.csv');
+d3.json('../data/viewership.json');
