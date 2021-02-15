@@ -116,7 +116,7 @@ const lineHeight = 350;
 
 // Create function to draws the line
 const lineFunction = d3.line()
-  .x((val) => val.month * 3)
+  .x((val) => val.month * 25)
   .y((val) => lineHeight - val.sales)
   .curve(d3.curveLinear);
 
@@ -140,7 +140,7 @@ d3.json('../data/monthlySales.json')
       .enter()
       .append('text')
       .text((val) => val.sales)
-      .attr('x', (val) => val.month * 3 - 25)
+      .attr('x', (val) => val.month * 25)
       .attr('y', (val) => lineHeight - val.sales)
       .attr('font-sizwe', '12px')
       .attr('fill', '#666666')
