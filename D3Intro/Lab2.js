@@ -4,7 +4,7 @@
 Example One: This example will place an svg circle in the center of the svg elelment,
 Will give it a a radius of 100 pixels and fill it with a red colour
 */
-// eslint-disable-next-line no-undef
+
 d3.select('svg#example1')
   .append('circle')
   .attr('cx', 320)
@@ -13,9 +13,9 @@ d3.select('svg#example1')
   .attr('fill', 'red');
 
 /*
-    Use D3 to create shapes in svg#example1 using the following attributes/dimensions:
-  TODO 1: Circle
-        set the opacity of the circle below to 0.5
+Use D3 to create shapes in svg#example1 using the following attributes/dimensions:
+TODO 1: Circle
+  set the opacity of the circle below to 0.5
 */
 d3.select('svg#example1')
   .append('circle')
@@ -24,34 +24,38 @@ d3.select('svg#example1')
   .attr('r', 100)
   .attr('fill', 'red');
 
-/* TODO 2: Draw an SVG Lollipop chart with the following attributes:
-        line: x1 = 100, y1=100, x2=300, y2=100 stroke=black
-        circle: cx=300, cy=100, r=3
-        text: x=100, y=90, content="Lolliport Chart"
+/* 
+TODO 2: Draw an SVG Lollipop chart with the following attributes:
+  line: x1 = 100, y1=100, x2=300, y2=100 stroke=black
+  circle: cx=300, cy=100, r=3
+  text: x=100, y=90, content="Lolliport Chart"
 */
+
+
 /*
 TODO 3: Draw an SVG Line with the following attributes:
-        line:
-         x1=100,
-         y1=100,
-         x2=200,
-         y2= 200,
-         stroke=rgb(255, 0, 0),
-         stroke-width=4
+  line:
+    x1=100,
+    y1=100,
+    x2=200,
+    y2= 200,
+    stroke=rgb(255, 0, 0),
+    stroke-width=4
 */
 
 /*
-TODO 4: Draw an SVG Rectangle witht he following attributes:
-         rect:
-         x=20,
-         y=20
-         width=200,
-         height=100,
-         fill=green
-   */
+TODO 4: Draw an SVG Rectangle with the following attributes:
+  rect:
+  x=20,
+  y=20
+  width=200,
+  height=100,
+  fill=green
+*/
 
-/* Example Two: Simple Bar Chart showing ticket slaes for each conference in sales.json
-    The bars are rect svg elements and have attributes x,y, height, width and fill color.
+/* 
+Example Two: Simple Bar Chart showing ticket slaes for each conference in sales.json
+  The bars are rect svg elements and have attributes x,y, height, width and fill color.
  */
 
 // Define the bar height and its spacing and text offset
@@ -98,16 +102,16 @@ d3.json('../data/sales.json')
   });
 
 /*
-  TOD0 5:
+TOD0 5:
   Display a simple Bar Graph like the example above
-  It sshould show the US viewership numbers for each title in 'data/viewership.json'
+  It should show the US viewership numbers for each title in 'data/viewership.json'
    */
 d3.json('../data/viewership.json')
   .then();
 
 /*
-    Example 3: Drawing a Line Chart with D3
-   */
+Example 3: Drawing a Line Chart with D3
+*/
 const lineHeight = 350;
 
 // Create function to draws the line
@@ -144,16 +148,18 @@ d3.json('../data/monthlySales.json')
       .attr('dy', '.35em');
   });
 
-/* TODO 6:
- Draw a Line Chart like the example above.
- It should display the US Viewership numbers for episode in 'data/viewership.json'
+/* 
+TODO 6:
+  Draw a Line Chart like the example above.
+  It should display the US Viewership numbers for episode in 'data/viewership.json'
 */
 d3.json('../data/viewership.json')
   .then();
 
 /*
-    Example 4: Drawing a Scatter Plot with D3
-   */
+  Example 4: Drawing a Scatter Plot with D3
+*/
+
 // define svg plot height and width
 const plotHeight = 350;
 
@@ -201,12 +207,14 @@ d3.json('../data/monthlySales.json')
   });
 
 /*  TODO 7: Draw a simple scatter plot with D3
-  It should display the US Viewership numbers for episode in 'data/viewership.json' */
+  It should display the US Viewership numbers for episode in 'data/viewership.json' 
+*/
+
 d3.json('../data/viewership.json')
   .then();
 
 /*
 TODO 8 (Stretch Challenge) : Add a function that colours(fills) the dats of the scatter plot
-      Colour them green when the value of US Viewership is greater than or equal to 150
-      colour them red when the value of US Viewership is less than than 150
+  Colour them green when the value of US Viewership is greater than or equal to 150
+  colour them red when the value of US Viewership is less than than 150
 */
