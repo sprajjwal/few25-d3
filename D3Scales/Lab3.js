@@ -1,8 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 
-/* Example 1: Drawing a Line Graph using D3 Linera Scale
-    */
+/* Example 1: Drawing a Line Graph using D3 Linera Scale */
 const lineHeight = 350;
 const lineWidth = 400;
 const padding = 25;
@@ -10,13 +9,15 @@ const padding = 25;
 d3.json('../data/monthlySales.json')
   .then((data) => {
     // define x linear Scale
+    // Use a scale to transfrom input values in one domain to output values 
+    // in a visual range. For example input sales in $ to output position in px.
     const xScale = d3.scaleLinear()
-      .domain([
-        d3.min(data, (d) => d.month),
-        d3.max(data, (d) => d.month),
+      .domain([ // Set the domain of the scale - the doamin is the input value
+        d3.min(data, (d) => d.month), // We need to know the min
+        d3.max(data, (d) => d.month), // and the max values in the scale
       ])
-      .range([0, lineWidth])
-      .nice();
+      .range([0, lineWidth]) // The range is the output value
+      .nice(); // Make it nice ?
 
     // define y Linear Scale
     const yScale = d3.scaleLinear()
@@ -29,9 +30,9 @@ d3.json('../data/monthlySales.json')
 
     // Create function to draws the line
     const lineFunction = d3.line()
-      .x((val) => xScale(val.month))
-      .y((val) => yScale(val.sales))
-      .curve(d3.curveLinear);
+      .x((val) => xScale(val.month)) // Use the Scale to get the x 
+      .y((val) => yScale(val.sales)) // Use the scale to get the y
+      .curve(d3.curveLinear); 
 
     // draw the line
     d3.select('svg#example1')
@@ -219,3 +220,50 @@ d3.json('../data/viewership.json');
 */
 
 d3.csv('../data/cities.csv');
+
+
+
+// Titanic
+d3.json('../data/titanic-passengers.json')
+  .then((data) => {
+    const passengers = data.map(p => p.fields)
+
+    // define x linear Scale to position passengers on the x 
+    const xScale = d3.scaleLinear()
+      .domain([0, passengers.length])
+      .range([3, 897])
+      .nice();
+    
+    // Define a linear scale to position passengers on the y based on fare
+    const yScale = d3.scaleLinear()
+      // .domain([d3.min(passengers.map(p => p.fare)), d3.max(passengers.map(p => p.fare))])
+      .domain(d3.extent(passengers, p => p.fare)) // use extent to get min and max
+      .range([97, 3])
+
+    // Make an ordinal scale for embarked
+    const portScale = d3.scaleOrdinal()
+      .domain(['S', 'C', 'Q', 'undefined'])
+      .range(['tomato', 'lime', 'gold', 'gray'])
+
+    // Make an oridinal scale for survived
+    const survivedScale = d3.scaleOrdinal()
+      .domain(['Yes', 'No'])
+      .range(['0.5', '0.15'])
+
+    const ageScale = d3.scaleSqrt()
+      .domain([d3.min(passengers.map(p => p.age)), d3.max(passengers.map(p => p.age))])
+      .range([1, 10])
+
+    d3.select('#titanic-data')
+      .style('background-color', '#111')
+      .selectAll('rect')
+      .data(passengers)
+      .enter()
+      .append('rect')
+      .attr('width', p => 1)
+      .attr('height', p => ageScale(p.age))
+      .attr('x', (p, i) => xScale(i))
+      .attr('y', (p, i) => yScale(p.fare))
+      .attr('fill', p => portScale(p.embarked))
+      .attr('opacity', p => survivedScale(p.survived))
+  })
