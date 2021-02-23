@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 /* Example One: using d3 to style elements in the DOM */
 
+// const color = d3.scale.category20();
 d3.select('div#example1')
   .style('color', 'green');
 
@@ -42,7 +43,12 @@ d3.json('../data/sales.json')
       .enter()
       .append('div')
       // set the text for each div
+      .text(n => n.conference_name)
       // add a style for each div
+      .style('background-color', 'black')
+      .style('margin', '1em')
+      .style('color', 'white')
+      .style('padding', '1.25em 0')
   })
 
 
@@ -52,7 +58,19 @@ d3.json('../data/sales.json')
   Stretch: Make each month a different color. 
 */
 
-d3.json('../data/monthlySales.json');
+d3.json('../data/monthlySales.json')
+  .then(data => {
+    d3.select('#viewership-data')
+      .selectAll('div')
+      .data(data)
+      .enter()
+      .append('div')
+      .text(d => `Month ${d.month}: ${d.sales}`)
+      .style('background-color', n => {
+        const i = (n.month / 12 * 255).toFixed(0)
+        return `rgba(${i}, 50, 100, 1)`
+      })
+  })
 
 /* 
   Challenge:
@@ -61,4 +79,18 @@ d3.json('../data/monthlySales.json');
   Stretch: Format the date as "Day Month date, Year"
 */
 
-d3.json('../data/distanceCovered.json');
+d3.json('../data/distanceCovered.json')
+.then(data => {
+  d3.select('#monthly-sales-data')
+    .selectAll('div')
+    .data(data)
+    .enter()
+    .append('div')
+    .text(d => d.date)
+    .style('width', d => `${d.kilometeres/5}vw`)
+    .style('border', '1px solid black')
+    .style('margin', '0.2em')
+    .style('text-align', 'left')
+    .style('padding', '0.5em 0.2em')
+    .style('background-color', 'yellow')
+})
