@@ -13,6 +13,18 @@ d3.select('div#example1')
   Use the D3 to change the background color of the fifthDiv to Blue (#0000F9)
   Use the D3 to change the background color of the lastDiv to Philippine Violet(#86007D)
 */
+d3.select("#firstDiv")
+  .style('color', '#FF0018')
+d3.select("#secondDiv")
+  .style('color', '#FFA52C')
+d3.select("#thirdDiv")
+  .style('color', '#FFFF41')
+d3.select("#fourthDiv")
+.style('color', '#000018')
+d3.select("#fifthDiv")
+  .style('color', '#0000F9')
+d3.select("#lastDiv")
+  .style('color', '#86007D')
 
 // d3.select('');
 
