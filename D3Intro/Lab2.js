@@ -22,7 +22,8 @@ d3.select('svg#example1')
   .attr('cx', 150)
   .attr('cy', 150)
   .attr('r', 100)
-  .attr('fill', 'red');
+  .attr('fill', 'red')
+  .attr('opacity', '0.5');
 
 /* 
 TODO 2: Draw an SVG Lollipop chart with the following attributes:
@@ -31,7 +32,27 @@ TODO 2: Draw an SVG Lollipop chart with the following attributes:
   text: x=100, y=90, content="Lolliport Chart"
 */
 
+d3.select('svg#lollipop')
+  .append('line')
+  .attr('x1', 100)
+  .attr('y1', 100)
+  .attr('x2', 300)
+  .attr('y2', 100)
+  .style("stroke", 'black')
+  .style('stroke-width', 2)
 
+d3.select('svg#lollipop')
+  .append('circle')
+  .attr('cx', 300)
+  .attr('cy', 100)
+  .attr('r', 35)
+  .style('fill', 'red')
+
+d3.select('svg#lollipop')
+  .append('text')
+  .attr('x', 100)
+  .attr('y', 90)
+  .text("Lolliport Chart")
 /*
 TODO 3: Draw an SVG Line with the following attributes:
   line:
@@ -43,6 +64,15 @@ TODO 3: Draw an SVG Line with the following attributes:
     stroke-width=4
 */
 
+d3.select('svg#line')
+  .append('line')
+  .attr('x1', 100)
+  .attr('y1', 100)
+  .attr('x2', 200)
+  .attr('y2', 200)
+  .style('stroke', 'rgb(255, 0, 0)')
+  .style('stroke-width', 4)
+
 /*
 TODO 4: Draw an SVG Rectangle with the following attributes:
   rect:
@@ -52,6 +82,13 @@ TODO 4: Draw an SVG Rectangle with the following attributes:
   height=100,
   fill=green
 */
+d3.select('svg#rectangle')
+  .append('rect')
+  .attr('x', 20)
+  .attr('y', 20)
+  .attr('width', 200)
+  .attr('height', 100)
+  .attr('fill', 'green')
 
 /* 
 Example Two: Simple Bar Chart showing ticket slaes for each conference in sales.json
@@ -107,7 +144,30 @@ TOD0 5:
   It should show the US viewership numbers for each title in 'data/viewership.json'
    */
 d3.json('../data/viewership.json')
-  .then();
+  .then(data => {
+
+    d3.select('svg#viewershipNumbers')
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', 0)
+      .attr('height', BAR_HEIGHT)
+      .attr('y', (val, idx) => idx * BAR_SPACING)
+      .attr('width', (val, idx) => val.USViewers)
+      .attr('fill', 'green');
+    
+    d3.select('svg#viewershipNumbers')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('x', 0)
+      .attr('y', (val, idx) => idx * BAR_SPACING + BAR_HEIGHT + TEXT_OFFSET)
+      .attr('color', 'black')
+      .attr('font-size', '18px')
+      .text((val, idx) => `${val.Title}: ${val.USViewers}`);
+  });
 
 /*
 Example 3: Drawing a Line Chart with D3
@@ -118,6 +178,11 @@ const lineHeight = 350;
 const lineFunction = d3.line()
   .x((val) => val.month * 25)
   .y((val) => lineHeight - val.sales)
+  .curve(d3.curveLinear);
+
+const newLineFunction = d3.line()
+  .x(val => val.Episode * 35)
+  .y(val => lineHeight - val.USViewers)
   .curve(d3.curveLinear);
 
 d3.json('../data/monthlySales.json')
@@ -142,7 +207,7 @@ d3.json('../data/monthlySales.json')
       .text((val) => val.sales)
       .attr('x', (val) => val.month * 25)
       .attr('y', (val) => lineHeight - val.sales)
-      .attr('font-sizwe', '12px')
+      .attr('font-size', '16px')
       .attr('fill', '#666666')
       .attr('text-ancchor', 'start')
       .attr('dy', '.35em');
@@ -154,7 +219,32 @@ TODO 6:
   It should display the US Viewership numbers for episode in 'data/viewership.json'
 */
 d3.json('../data/viewership.json')
-  .then();
+  .then(data => {
+    // draw the line
+    d3.select('svg#viewershipLine')
+    .selectAll('path')
+    .data(data)
+    .enter()
+    .append('path')
+    .attr('d', newLineFunction(data))
+    .attr('stroke', 'purple')
+    .attr('stroke-width', 2)
+    .attr('fill', 'none');
+
+  // add labels
+  d3.select('svg#viewershipLine')
+    .selectAll('text')
+    .data(data)
+    .enter()
+    .append('text')
+    .text((val) => `' ${val.USViewers}`)
+    .attr('x', (val) => val.Episode * 35)
+    .attr('y', (val) => lineHeight - val.USViewers)
+    .attr('font-size', '18px')
+    .attr('fill', '#666666')
+    .attr('text-anchor', 'start')
+    .attr('dy', '.35em');
+  });
 
 /*
   Example 4: Drawing a Scatter Plot with D3
@@ -211,7 +301,32 @@ d3.json('../data/monthlySales.json')
 */
 
 d3.json('../data/viewership.json')
-  .then();
+  .then(data => {
+    // draw/add the dots
+    d3.select('svg#viewershipScatter')
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (val) => val.Episode * 25)
+      .attr('cy', (val) => plotHeight - (val.USViewers))
+      .attr('r', 5)
+      .attr('fill', '#666666');
+
+    // add labels
+    d3.select('svg#viewershipScatter')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .text((val) => val.USViewers)
+      .attr('x', (val) => val.Episode * 25)
+      .attr('y', (val) => plotHeight - (val.USViewers))
+      .attr('font-size', '12px')
+      .attr('font-family', 'sans-serif')
+      .attr('fill', '#666666')
+      .attr('text-anchor', 'start');
+  });
 
 /*
 TODO 8 (Stretch Challenge) : Add a function that colours(fills) the dats of the scatter plot
